@@ -88,7 +88,6 @@ func TestSliceIntToString(t *testing.T) {
 		name       string
 		args       args[int]
 		wantResult string
-		wantErr    bool
 	}
 	tests := []testCase[int]{
 		{
@@ -98,16 +97,11 @@ func TestSliceIntToString(t *testing.T) {
 				sep:    ",",
 			},
 			wantResult: "1,2,3,4,5",
-			wantErr:    false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotResult, err := SliceIntToString[int](tt.args.values, tt.args.sep)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("SliceIntToString() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
+			gotResult := SliceIntToString[int](tt.args.values, tt.args.sep)
 			if gotResult != tt.wantResult {
 				t.Errorf("SliceIntToString() gotResult = %v, want %v", gotResult, tt.wantResult)
 			}
