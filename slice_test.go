@@ -78,3 +78,39 @@ func TestSliceInt64(t *testing.T) {
 		})
 	}
 }
+
+func TestSliceIntToString(t *testing.T) {
+	type args[V constraints.Integer] struct {
+		values []V
+		sep    string
+	}
+	type testCase[V constraints.Integer] struct {
+		name       string
+		args       args[int]
+		wantResult string
+		wantErr    bool
+	}
+	tests := []testCase[int]{
+		{
+			name: "test int",
+			args: args[int]{
+				values: []int{1, 2, 3, 4, 5},
+				sep:    ",",
+			},
+			wantResult: "1,2,3,4,5",
+			wantErr:    false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotResult, err := SliceIntToString[int](tt.args.values, tt.args.sep)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("SliceIntToString() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if gotResult != tt.wantResult {
+				t.Errorf("SliceIntToString() gotResult = %v, want %v", gotResult, tt.wantResult)
+			}
+		})
+	}
+}

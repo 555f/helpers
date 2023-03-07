@@ -24,6 +24,16 @@ func SliceIntFromString[V constraints.Integer](s, sep string) (result []V, err e
 	return
 }
 
+func SliceIntToString[V constraints.Integer](values []V, sep string) (result string, err error) {
+	for i, v := range values {
+		if i > 0 {
+			result += sep
+		}
+		result += strconv.FormatInt(int64(v), 10)
+	}
+	return
+}
+
 func SliceFloatFromString[V constraints.Float](s, sep string) (result []V, err error) {
 	parts := strings.Split(s, sep)
 	result = make([]V, len(parts))
