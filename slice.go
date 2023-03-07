@@ -24,7 +24,7 @@ func SliceIntFromString[V constraints.Integer](s, sep string) (result []V, err e
 	return
 }
 
-func SliceIntToString[V constraints.Integer](values []V, sep string) (result string, err error) {
+func SliceIntToString[V constraints.Integer](values []V, sep string) (result string) {
 	for i, v := range values {
 		if i > 0 {
 			result += sep
